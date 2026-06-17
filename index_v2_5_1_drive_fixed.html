@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eresdé Recreatie Tools v2.5.1 Drive</title>
+<style>
+:root{--green:#91b600;--dark:#1f2937;--line:#d9dee7;--bg:#f4f6f8;--soft:#eef3d8;--danger:#fee2e2;--dangerText:#991b1b;--ok:#dcfce7;--okText:#166534;--warn:#fff7ed;--warnText:#9a3412;--blue:#dbeafe;--blueText:#1e40af}
+*{box-sizing:border-box}body{font-family:Arial,sans-serif;margin:0;background:var(--bg);color:var(--dark)}header{background:var(--green);color:white;padding:18px 16px;font-size:23px;font-weight:900}main{max-width:1100px;margin:auto;padding:14px}.card{background:white;border-radius:16px;padding:16px;margin:12px 0;box-shadow:0 2px 8px rgba(0,0,0,.08)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}label{font-size:14px;font-weight:900;margin-bottom:5px;display:block}input,select,textarea{width:100%;font-size:18px;padding:12px;border:1px solid var(--line);border-radius:11px;background:white}textarea{min-height:74px}button{font-size:18px;padding:13px 16px;border:0;border-radius:12px;font-weight:900;cursor:pointer}.primary{background:var(--green);color:white}.secondary{background:#e5e7eb;color:#111827}.danger{background:var(--danger);color:var(--dangerText)}.warn{background:var(--warn);color:var(--warnText)}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.small{font-size:13px;color:#6b7280;line-height:1.35}.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.kpi{background:var(--soft);border-radius:13px;padding:12px;font-weight:900;text-align:center}.kpi .num{font-size:30px;color:var(--green)}.kpi.warn{background:var(--warn);color:var(--warnText)}.kpi.warn .num{color:var(--warnText)}.kpi.danger{background:var(--danger);color:var(--dangerText)}.kpi.danger .num{color:var(--dangerText)}.tabs{display:flex;gap:8px;flex-wrap:wrap}.tabs button{font-size:16px}.tabActive{outline:3px solid rgba(145,182,0,.35)}.sectionTitle{font-size:21px;font-weight:900;margin:10px 0}.checkGroup{display:grid;grid-template-columns:1fr 1fr;gap:8px}.check{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff}.check input{width:24px;height:24px;margin:0;flex:0 0 auto}.check span{font-size:16px;font-weight:700}.badge{display:inline-block;background:#eef3d8;padding:5px 9px;border-radius:999px;font-weight:900;font-size:13px}.statusOk{display:inline-block;background:var(--ok);color:var(--okText);padding:5px 9px;border-radius:999px;font-weight:900;font-size:13px}.statusWarn{display:inline-block;background:var(--warn);color:var(--warnText);padding:5px 9px;border-radius:999px;font-weight:900;font-size:13px}.statusOpen{display:inline-block;background:var(--danger);color:var(--dangerText);padding:5px 9px;border-radius:999px;font-weight:900;font-size:13px}.statusDone{display:inline-block;background:var(--blue);color:var(--blueText);padding:5px 9px;border-radius:999px;font-weight:900;font-size:13px}canvas{width:100%;height:135px;border:2px dashed var(--line);border-radius:12px;background:white;touch-action:none}.sigSmall{height:90px}.filters{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}table{width:100%;border-collapse:collapse;margin-top:12px;background:white}th,td{border-bottom:1px solid var(--line);padding:10px;text-align:left;font-size:14px;vertical-align:top}th{background:#f9fafb;font-weight:900}.empty{padding:18px;text-align:center;color:#6b7280;font-weight:700}.rowActions button{font-size:13px;padding:7px 9px;margin:2px}.hidden{display:none!important}.openList{display:grid;gap:8px;margin-top:10px}.openItem{background:var(--warn);color:var(--warnText);border-radius:13px;padding:12px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}.openItem strong{display:block;color:#7c2d12}.reportOnly{display:none}.printHeader{display:none}
+@media(max-width:760px){.grid,.grid3,.filters,.summary,.checkGroup{grid-template-columns:1fr}button{width:100%}table,thead,tbody,tr,td,th{display:block}thead{display:none}tr{border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:8px;background:white}td{border:0;padding:6px 4px}td:before{content:attr(data-label);display:block;font-weight:900;font-size:12px;color:#6b7280}.rowActions button{width:auto}.openItem{grid-template-columns:1fr}}
+@media print{body{background:white}.noPrint{display:none!important}.card{box-shadow:none;border:1px solid #ddd;break-inside:avoid;margin:7px 0;padding:10px}header{color:#111;background:white;border-bottom:4px solid var(--green);padding:10px 0}main{padding:0;max-width:none}input,select,textarea{border:0;padding:3px;font-size:12px}label{font-size:11px}.check{padding:3px;border:0}.check input{width:14px;height:14px}.check span{font-size:11px}.sectionTitle{font-size:14px;margin:5px 0}.summary{grid-template-columns:repeat(4,1fr)}.kpi{padding:5px}.kpi .num{font-size:18px}th,td{font-size:10px;padding:4px}canvas{height:70px}.printHeader{display:block}.reportOnly{display:block}.screenOnly{display:none!important}}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+<header>Eresdé Recreatie Tools <span style="font-size:14px;font-weight:700">v2.5.1 Drive</span></header>
+<main>
+<section class="card noPrint">
+  <div class="tabs">
+    <button class="primary tabActive" id="tabDash" onclick="showScreen('dashboard')">Dashboard</button>
+    <button class="secondary" id="tabForm" onclick="newControl()">+ Nieuwe woningcontrole</button>
+    <button class="secondary" id="tabReport" onclick="showScreen('report')">Dagrapport</button>
+    <button class="secondary" id="tabWeek" onclick="showScreen('week')">Weekrapport</button>
+    <button class="secondary" onclick="window.print()">Print huidige scherm / PDF</button>
+  </div>
+  <p class="small">Alles wordt lokaal in deze browser opgeslagen. Maak regelmatig een PDF/export als back-up.</p>
+</section>
+
+<section id="dashboardScreen">
+  <section class="card">
+    <h2 style="margin:0 0 8px 0">Dashboard vandaag</h2>
+    <div class="summary">
+      <div class="kpi"><div class="num" id="kpiToday">0</div>vandaag gecontroleerd</div>
+      <div class="kpi"><div class="num" id="kpiOk">0</div>akkoord</div>
+      <div class="kpi warn"><div class="num" id="kpiBijz">0</div>bijzonderheden</div>
+      <div class="kpi danger"><div class="num" id="kpiOpen">0</div>wacht op parkmanager</div>
+    </div>
+  </section>
+  <section class="card">
+    <h2 style="margin:0 0 8px 0">🟠 Bijzonderheden afhandelen</h2>
+    <div id="openWrap"></div>
+  </section>
+  <section class="card">
+    <h2 style="margin:0 0 8px 0">Overzicht controles</h2>
+    <div class="filters noPrint">
+      <div><label>Periode</label><select id="filterPeriod" onchange="render()"><option value="today">Vandaag</option><option value="week">Deze week</option><option value="all">Alles</option></select></div>
+      <div><label>Status</label><select id="filterStatus" onchange="render()"><option value="">Alles</option><option value="ok">Akkoord</option><option value="bijzonder">Bijzonderheid</option><option value="pmopen">Wacht op parkmanager</option><option value="pmhandled">Afgehandeld</option></select></div>
+      <div><label>Zoeken</label><input id="search" oninput="render()" placeholder="Park, woning, medewerker"></div>
+    </div>
+    <div class="actions noPrint"><button class="secondary" onclick="exportCsv()">Export CSV</button><button class="danger" onclick="deleteAll()">Alles wissen</button></div>
+    <div id="tableWrap"></div>
+  </section>
+</section>
+
+<section id="formScreen" class="hidden">
+  <section class="card noPrint" id="editBanner" style="display:none;background:var(--warn);color:var(--warnText);font-weight:900">Je bewerkt een bestaande woningcontrole.</section>
+  <section class="card">
+    <h2 style="margin:0 0 10px 0">Woningcontrole</h2>
+    <div class="grid">
+      <div><label>Datum</label><input id="datum" type="date"></div>
+      <div><label>Park</label><input id="park" list="parkList" placeholder="Typ parknaam..."><datalist id="parkList"></datalist></div>
+      <div><label>Huisnummer / accommodatie</label><input id="woning" placeholder="Bijv. 101, Lodge 12"></div>
+      <div><label>Schoonmaak uitgevoerd door</label><input id="schoonmaker" placeholder="Naam medewerker(s)"></div>
+      <div><label>Voorvrouw</label><input id="voorvrouw" placeholder="Naam voorvrouw"></div>
+      <div><label>Status controle</label><select id="controlStatus"><option value="ok">Akkoord</option><option value="bijzonder">Bijzonderheden aanwezig</option></select></div>
+    </div>
+  </section>
+
+  <div id="checklists"></div>
+
+  <section class="card">
+    <label>Schade / bijzonderheden</label>
+    <textarea id="bijzonderheden" placeholder="Vul alleen in bij bijzonderheden, schade of aandachtspunten..."></textarea>
+  </section>
+
+  <section class="card">
+    <label>Handtekening voorvrouw</label>
+    <canvas id="sigVoorvrouw" width="900" height="180"></canvas>
+    <div class="actions noPrint"><button class="secondary" onclick="clearCanvas('voorvrouw')">Handtekening wissen</button></div>
+  </section>
+
+  <section class="card" id="pmSection">
+    <h3 style="margin:0 0 10px 0">Parkmanager bij bijzonderheden</h3>
+    <div class="grid">
+      <div><label>Naam parkmanager</label><input id="parkmanager" placeholder="Naam parkmanager"></div>
+      <div><label>Afhandeling</label><select id="pmStatus"><option value="open">Wacht op parkmanager</option><option value="handled">Afgehandeld / akkoord</option></select></div>
+    </div>
+    <label style="margin-top:12px">Opmerking parkmanager</label>
+    <textarea id="pmNote" placeholder="Optioneel..."></textarea>
+    <label style="margin-top:12px">Handtekening parkmanager</label>
+    <canvas id="sigParkmanager" width="900" height="160" class="sigSmall"></canvas>
+    <div class="actions noPrint"><button class="secondary" onclick="clearCanvas('parkmanager')">Handtekening wissen</button></div>
+  </section>
+
+  <section class="card noPrint">
+    <div class="actions">
+      <button class="primary" onclick="saveControl(false)">Opslaan</button>
+      <button class="primary" onclick="saveControl(true)">Opslaan & nieuwe woning</button>
+      <button class="secondary" onclick="printCurrentControl()">PDF woningcontrole maken</button>
+      <button class="primary" onclick="uploadCurrentControlToDrive()">Woningcontrole opslaan in Drive</button>
+      <button class="secondary" onclick="showScreen('dashboard')">Terug naar dashboard</button>
+    </div>
+  </section>
+</section>
+
+<section id="reportScreen" class="hidden">
+  <section class="card noPrint">
+    <h2 style="margin:0 0 10px 0">Dagrapport maken</h2>
+    <div class="grid3">
+      <div><label>Datum dagrapport</label><input id="reportDate" type="date" onchange="renderReport()"></div>
+      <div><label>Park filter</label><input id="reportPark" list="parkList" placeholder="Leeg = alle parken" oninput="renderReport()"></div>
+      <div><label>Rapporttitel</label><input id="reportTitle" value="Dagrapport recreatie"></div>
+    </div>
+    <div class="actions">
+      <button class="primary" onclick="uploadReportToDrive('full')">Volledig dagrapport Drive</button>
+      <button class="primary" onclick="uploadReportToDrive('compact')">Beknopt dagrapport Drive</button>
+      <button class="secondary" onclick="renderReport('full');window.print()">Volledig dagrapport PDF</button>
+      <button class="secondary" onclick="renderReport('compact');window.print()">Beknopt dagrapport PDF</button>
+      <button class="secondary" onclick="renderReport(currentReportMode)">Vernieuwen</button>
+    </div>
+  </section>
+  <section class="card" id="reportOutput"></section>
+</section>
+
+<section id="weekScreen" class="hidden">
+  <section class="card noPrint">
+    <h2 style="margin:0 0 10px 0">Weekrapport maken</h2>
+    <div class="grid3">
+      <div><label>Datum in week</label><input id="weekDate" type="date" onchange="renderWeekReport(currentWeekMode)"></div>
+      <div><label>Park filter</label><input id="weekPark" list="parkList" placeholder="Leeg = alle parken" oninput="renderWeekReport(currentWeekMode)"></div>
+      <div><label>Rapporttitel</label><input id="weekTitle" value="Weekrapport recreatie"></div>
+    </div>
+    <div class="actions">
+      <button class="primary" onclick="uploadWeekReportToDrive('full')">Volledig weekrapport Drive</button>
+      <button class="primary" onclick="uploadWeekReportToDrive('compact')">Beknopt weekrapport Drive</button>
+      <button class="secondary" onclick="renderWeekReport('full');window.print()">Volledig weekrapport PDF</button>
+      <button class="secondary" onclick="renderWeekReport('compact');window.print()">Beknopt weekrapport PDF</button>
+      <button class="secondary" onclick="renderWeekReport(currentWeekMode)">Vernieuwen</button>
+    </div>
+  </section>
+  <section class="card" id="weekOutput"></section>
+</section>
+</main>
+<script>
+const KEY='recreatie_tools_v2';
+let editingId=null;
+let currentReportMode='compact';
+let currentWeekMode='compact';
+const controlStatus = document.getElementById('controlStatus');
+const checklistGroups={
+ 'Algemene controle':['Lichten uit','Algemeen schoon en ruikt fris','Geen persoonlijke spullen aanwezig','Ramen en deuren schoon','Afval verwijderd','Stofzuigen en dweilen uitgevoerd','Verwarming correct ingesteld','Servicepakket aanwezig','Middelen aangevuld'],
+ 'Woonkamer':['Meubels schoon','Kussens netjes','Ramen/spiegels streeploos','Randen en richels schoon','Raambekleding schoon','Onder bank gecontroleerd','Vloer schoon'],
+ 'Keuken':['Aanrecht schoon','Koelkast schoon','Oven/magnetron schoon','Kastjes leeg en schoon','Vaatwasser schoon','Servies/inventaris gecontroleerd','Vuilnisbak schoon','Vloer schoon'],
+ 'Badkamer / Toilet':['Douche schoon','Toilet schoon','Wastafel schoon','Kranen schoon','Spiegel schoon','Prullenbak leeg','Toiletpapier aanwezig','Sauna/bad/jacuzzi gecontroleerd'],
+ 'Slaapkamers':['Bedden opgemaakt','Matrassen schoon','Kasten stofvrij','Genoeg hangers aanwezig','Geen persoonlijke spullen','Vloer schoon'],
+ 'Buitenruimte':['Terras netjes','Tuinmeubilair afgenomen','Geen afval aanwezig','Ramen/deuren buitenzijde gecontroleerd','Jacuzzi gecontroleerd indien van toepassing']
+};
+function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+function todayStr(){return new Date().toISOString().slice(0,10)}
+function entries(){return JSON.parse(localStorage.getItem(KEY)||'[]')}
+function setEntries(list){localStorage.setItem(KEY,JSON.stringify(list)); updateParks();}
+function parseDate(s){const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)}
+function fmtDate(s){if(!s)return'';return parseDate(s).toLocaleDateString('nl-NL',{day:'2-digit',month:'2-digit',year:'numeric'})}
+function startOfWeek(d){const x=new Date(d.getFullYear(),d.getMonth(),d.getDate());const day=(x.getDay()+6)%7;x.setDate(x.getDate()-day);return x}
+function sameDay(a,b){return a.getFullYear()==b.getFullYear()&&a.getMonth()==b.getMonth()&&a.getDate()==b.getDate()}
+function inPeriod(x,p){const now=new Date();const d=parseDate(x.datum); if(p==='today')return sameDay(d,now); if(p==='week'){const s=startOfWeek(now),e=new Date(s);e.setDate(s.getDate()+7);return d>=s&&d<e} return true}
+function statusLabel(x){if(x.status==='bijzonder' && x.pmStatus==='handled')return '<span class="statusDone">🟢 Bijzonderheid afgehandeld</span>'; if(x.status==='bijzonder')return '<span class="statusWarn">🟠 Wacht op parkmanager</span>'; return '<span class="statusOk">🟢 Akkoord</span>'}
+function buildChecklist(){let html=''; Object.entries(checklistGroups).forEach(([group,items])=>{html+=`<section class="card"><div class="sectionTitle">${group}</div><div class="checkGroup">`; items.forEach((it,i)=>{const id='chk_'+group.replace(/\W/g,'_')+'_'+i; html+=`<label class="check"><input type="checkbox" class="chk" data-group="${esc(group)}" data-item="${esc(it)}" id="${id}"><span>${esc(it)}</span></label>`}); html+='</div></section>'}); checklists.innerHTML=html;}
+function showScreen(s){
+  dashboardScreen.classList.toggle('hidden',s!=='dashboard');
+  formScreen.classList.toggle('hidden',s!=='form');
+  reportScreen.classList.toggle('hidden',s!=='report');
+  if(typeof weekScreen!=='undefined') weekScreen.classList.toggle('hidden',s!=='week');
+  ['tabDash','tabForm','tabReport','tabWeek'].forEach(id=>{const el=document.getElementById(id); if(el) el.classList.remove('tabActive')});
+  if(s==='dashboard')tabDash.classList.add('tabActive');
+  if(s==='form')tabForm.classList.add('tabActive');
+  if(s==='report'){tabReport.classList.add('tabActive');renderReport(currentReportMode)}
+  if(s==='week'){tabWeek.classList.add('tabActive');renderWeekReport(currentWeekMode)}
+  render();
+}
+function newControl(){editingId=null; clearForm(true); showScreen('form');}
+function clearForm(resetDate){editBanner.style.display='none'; datum.value= resetDate?todayStr():datum.value; reportDate.value=reportDate.value||todayStr(); woning.value=''; schoonmaker.value=''; bijzonderheden.value=''; parkmanager.value=''; pmNote.value=''; pmStatus.value='open'; controlStatus.value='ok'; document.querySelectorAll('.chk').forEach(c=>c.checked=false); clearCanvas('voorvrouw'); clearCanvas('parkmanager'); togglePm();}
+function collectChecks(){return [...document.querySelectorAll('.chk')].map(c=>({group:c.dataset.group,item:c.dataset.item,checked:c.checked}))}
+function applyChecks(checks){if(!checks)return; document.querySelectorAll('.chk').forEach(c=>{const found=checks.find(x=>x.group===c.dataset.group&&x.item===c.dataset.item); c.checked=found?!!found.checked:true;})}
+function saveControl(newAfter){if(!datum.value||!park.value.trim()||!woning.value.trim()||!voorvrouw.value.trim()){alert('Vul minimaal datum, park, woningnummer en voorvrouw in.');return;} const sigV=getSig('voorvrouw'); if(!sigV){alert('Handtekening voorvrouw is verplicht.');return;} if(controlStatus.value==='bijzonder' && pmStatus.value==='handled' && !getSig('parkmanager')){alert('Voor afgehandelde bijzonderheden is de handtekening van de parkmanager nodig.');return;} const item={id:editingId||Date.now().toString(36)+Math.random().toString(16).slice(2),datum:datum.value,park:park.value.trim(),woning:woning.value.trim(),schoonmaker:schoonmaker.value.trim(),voorvrouw:voorvrouw.value.trim(),status:controlStatus.value,bijzonderheden:bijzonderheden.value.trim(),checks:collectChecks(),sigVoorvrouw:sigV,parkmanager:parkmanager.value.trim(),pmStatus: controlStatus.value==='bijzonder'?pmStatus.value:'',pmNote:pmNote.value.trim(),sigParkmanager:getSig('parkmanager'),updated:new Date().toISOString()}; let list=entries(); if(editingId)list=list.map(x=>x.id===editingId?{...x,...item}:x); else list.unshift(item); setEntries(list); alert('Woningcontrole opgeslagen.'); if(newAfter){const keepPark=park.value,keepVoor=voorvrouw.value,keepDate=datum.value; clearForm(false); park.value=keepPark; voorvrouw.value=keepVoor; datum.value=keepDate; editingId=null; window.scrollTo({top:0,behavior:'smooth'}); setTimeout(()=>woning.focus(),100);} else {editingId=item.id; editBanner.style.display='block';} render();}
+function edit(id){const x=entries().find(e=>e.id===id); if(!x)return; editingId=id; datum.value=x.datum; park.value=x.park; woning.value=x.woning; schoonmaker.value=x.schoonmaker||''; voorvrouw.value=x.voorvrouw||''; controlStatus.value=x.status||'ok'; bijzonderheden.value=x.bijzonderheden||''; parkmanager.value=x.parkmanager||''; pmStatus.value=x.pmStatus||'open'; pmNote.value=x.pmNote||''; applyChecks(x.checks); setSig('voorvrouw',x.sigVoorvrouw); setSig('parkmanager',x.sigParkmanager); editBanner.style.display='block'; togglePm(); showScreen('form'); window.scrollTo({top:0,behavior:'smooth'});}
+function del(id){if(!confirm('Deze woningcontrole verwijderen?'))return; setEntries(entries().filter(x=>x.id!==id)); render();}
+function deleteAll(){if(!confirm('Alle recreatiecontroles wissen op dit apparaat?'))return; setEntries([]); render();}
+function render(){const list=entries(); const today=list.filter(x=>inPeriod(x,'today')); kpiToday.textContent=today.length; kpiOk.textContent=today.filter(x=>x.status==='ok').length; kpiBijz.textContent=today.filter(x=>x.status==='bijzonder').length; kpiOpen.textContent=today.filter(x=>x.status==='bijzonder'&&x.pmStatus!=='handled').length; renderOpen(list); renderTable(list);}
+function renderOpen(list){const open=list.filter(x=>x.status==='bijzonder'&&x.pmStatus!=='handled').sort((a,b)=>(a.datum||'').localeCompare(b.datum||'')); if(!open.length){openWrap.innerHTML='<div class="empty">Geen openstaande bijzonderheden.</div>';return} openWrap.innerHTML=`<div class="openList">${open.map(x=>`<div class="openItem"><div><strong>${fmtDate(x.datum)} · ${esc(x.park)} · woning ${esc(x.woning)}</strong>${esc(x.bijzonderheden||'Bijzonderheid zonder toelichting')}</div><button class="primary" onclick="edit('${x.id}')">Afhandelen</button></div>`).join('')}</div>`}
+function renderTable(list){const q=(search.value||'').toLowerCase();let f=list.filter(x=>inPeriod(x,filterPeriod.value)); if(filterStatus.value==='ok')f=f.filter(x=>x.status==='ok'); if(filterStatus.value==='bijzonder')f=f.filter(x=>x.status==='bijzonder'); if(filterStatus.value==='pmopen')f=f.filter(x=>x.status==='bijzonder'&&x.pmStatus!=='handled'); if(filterStatus.value==='pmhandled')f=f.filter(x=>x.status==='bijzonder'&&x.pmStatus==='handled'); if(q)f=f.filter(x=>[x.park,x.woning,x.schoonmaker,x.voorvrouw,x.bijzonderheden].join(' ').toLowerCase().includes(q)); if(!f.length){tableWrap.innerHTML='<div class="empty">Geen controles gevonden.</div>';return} tableWrap.innerHTML=`<table><thead><tr><th>Datum</th><th>Park</th><th>Woning</th><th>Schoonmaker</th><th>Voorvrouw</th><th>Status</th><th>Bijzonderheden</th><th class="noPrint">Actie</th></tr></thead><tbody>${f.map(x=>`<tr><td data-label="Datum">${fmtDate(x.datum)}</td><td data-label="Park">${esc(x.park)}</td><td data-label="Woning"><strong>${esc(x.woning)}</strong></td><td data-label="Schoonmaker">${esc(x.schoonmaker)}</td><td data-label="Voorvrouw">${esc(x.voorvrouw)}</td><td data-label="Status">${statusLabel(x)}</td><td data-label="Bijzonderheden">${esc(x.bijzonderheden)}</td><td data-label="Actie" class="rowActions noPrint"><button class="secondary" onclick="edit('${x.id}')">Open</button><button class="secondary" onclick="printSaved('${x.id}')">PDF</button><button class="danger" onclick="del('${x.id}')">Verwijder</button></td></tr>`).join('')}</tbody></table>`}
+function reportBlock(list, title, subtitle, mode){
+  const ok=list.filter(x=>x.status==='ok').length;
+  const bijz=list.filter(x=>x.status==='bijzonder').length;
+  const open=list.filter(x=>x.status==='bijzonder'&&x.pmStatus!=='handled').length;
+  const details = mode==='full' ? list : list.filter(x=>x.status==='bijzonder');
+  const detailTitle = mode==='full' ? 'Volledige woningcontroles' : 'Bijzonderheden (uitgebreid)';
+  return `<div class="printHeader"><h1>${esc(title)}</h1></div><h2 style="margin:0 0 8px 0">${esc(title)} - ${esc(subtitle)}</h2><div class="summary"><div class="kpi"><div class="num">${list.length}</div>woningen</div><div class="kpi"><div class="num">${ok}</div>akkoord</div><div class="kpi warn"><div class="num">${bijz}</div>bijzonderheden</div><div class="kpi danger"><div class="num">${open}</div>openstaand</div></div>${!list.length?'<div class="empty">Geen controles gevonden.</div>':`<h3>Samenvatting</h3><table><thead><tr><th>Datum</th><th>Park</th><th>Woning</th><th>Voorvrouw</th><th>Status</th><th>Bijzonderheden</th></tr></thead><tbody>${list.map(x=>`<tr><td>${fmtDate(x.datum)}</td><td>${esc(x.park)}</td><td>${esc(x.woning)}</td><td>${esc(x.voorvrouw)}</td><td>${statusLabel(x)}</td><td>${esc(x.bijzonderheden)}</td></tr>`).join('')}</tbody></table><h3>${detailTitle}</h3>${details.length?details.map(controlHtml).join(''):'<div class="empty">Geen bijzonderheden voor deze selectie.</div>'}`}`
+}
+function renderReport(mode=currentReportMode){
+  currentReportMode=mode||'compact';
+  const date=reportDate.value||todayStr();
+  const p=(reportPark.value||'').toLowerCase();
+  let list=entries().filter(x=>x.datum===date);
+  if(p)list=list.filter(x=>x.park.toLowerCase().includes(p));
+  const label=currentReportMode==='full'?'Volledig dagrapport':'Beknopt dagrapport';
+  reportOutput.innerHTML=reportBlock(list, label+' recreatie', fmtDate(date), currentReportMode);
+}
+function isoWeekInfo(d){
+  const date=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));
+  const day=date.getUTCDay()||7;
+  date.setUTCDate(date.getUTCDate()+4-day);
+  const yearStart=new Date(Date.UTC(date.getUTCFullYear(),0,1));
+  const week=Math.ceil((((date-yearStart)/86400000)+1)/7);
+  return {year:date.getUTCFullYear(),week};
+}
+function weekRangeFromDateString(s){
+  const d=parseDate(s||todayStr());
+  const start=startOfWeek(d);
+  const end=new Date(start); end.setDate(start.getDate()+7);
+  return {start,end};
+}
+function renderWeekReport(mode=currentWeekMode){
+  currentWeekMode=mode||'compact';
+  const date=weekDate.value||todayStr();
+  const p=(weekPark.value||'').toLowerCase();
+  const r=weekRangeFromDateString(date);
+  let list=entries().filter(x=>{const d=parseDate(x.datum); return d>=r.start && d<r.end});
+  if(p)list=list.filter(x=>x.park.toLowerCase().includes(p));
+  const wi=isoWeekInfo(parseDate(date));
+  const label=currentWeekMode==='full'?'Volledig weekrapport':'Beknopt weekrapport';
+  const subtitle=`Week ${wi.week} · ${fmtDate(r.start.toISOString().slice(0,10))} t/m ${fmtDate(new Date(r.end.getTime()-86400000).toISOString().slice(0,10))}`;
+  weekOutput.innerHTML=reportBlock(list, `${label} recreatie`, subtitle, currentWeekMode);
+}
+function controlHtml(x){const checksBy={};(x.checks||[]).forEach(c=>{(checksBy[c.group]=checksBy[c.group]||[]).push(c)});return `<div class="card" style="page-break-inside:avoid"><h2>Woning ${esc(x.woning)} - ${esc(x.park)}</h2><div class="grid3"><div><strong>Datum:</strong> ${fmtDate(x.datum)}</div><div><strong>Schoonmaker:</strong> ${esc(x.schoonmaker)}</div><div><strong>Voorvrouw:</strong> ${esc(x.voorvrouw)}</div></div><p><strong>Status:</strong> ${statusLabel(x)}</p>${Object.entries(checksBy).map(([g,items])=>`<h3>${esc(g)}</h3><div class="checkGroup">${items.map(c=>`<div class="check"><input type="checkbox" ${c.checked?'checked':''} disabled><span>${esc(c.item)}</span></div>`).join('')}</div>`).join('')}<p><strong>Bijzonderheden:</strong><br>${esc(x.bijzonderheden)||'Geen'}</p><div class="grid"><div><strong>Handtekening voorvrouw</strong><br>${x.sigVoorvrouw?`<img src="${x.sigVoorvrouw}" style="max-width:100%;height:70px;border:1px solid #ddd">`:''}</div>${x.status==='bijzonder'?`<div><strong>Parkmanager</strong><br>${esc(x.parkmanager||'')}<br>${x.sigParkmanager?`<img src="${x.sigParkmanager}" style="max-width:100%;height:70px;border:1px solid #ddd">`:'Nog niet getekend'}<br>${esc(x.pmNote||'')}</div>`:''}</div></div>`}
+function printSaved(id){const x=entries().find(e=>e.id===id); if(!x)return; const w=window.open('','_blank'); w.document.write(`<!doctype html><html><head><title>Woning ${esc(x.woning)}</title><style>body{font-family:Arial,sans-serif;padding:18px;color:#1f2937}.card{border:1px solid #ddd;border-radius:10px;padding:12px;margin:10px 0}.grid,.grid3{display:grid;grid-template-columns:1fr 1fr;gap:8px}.checkGroup{display:grid;grid-template-columns:1fr 1fr;gap:4px}.check{font-size:12px}.statusOk,.statusWarn,.statusDone{font-weight:bold}img{background:white}</style></head><body>${controlHtml(x)}<script>window.print()<\/script></body></html>`); w.document.close();}
+function printCurrentControl(){saveControl(false); setTimeout(()=>{if(editingId)printSaved(editingId)},200)}
+function exportCsv(){const list=entries(); if(!list.length){alert('Geen gegevens om te exporteren.');return} const rows=[['Datum','Park','Woning','Schoonmaker','Voorvrouw','Status','Bijzonderheden','Parkmanager','PM status'],...list.map(x=>[x.datum,x.park,x.woning,x.schoonmaker,x.voorvrouw,x.status,x.bijzonderheden,x.parkmanager,x.pmStatus])]; const csv=rows.map(r=>r.map(v=>`"${String(v||'').replace(/"/g,'""')}"`).join(';')).join('\n'); const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='recreatie_controles.csv'; a.click(); URL.revokeObjectURL(url);}
+function updateParks(){const parks=[...new Set(entries().map(x=>x.park).filter(Boolean))].sort(); parkList.innerHTML=''; parks.forEach(p=>{const o=document.createElement('option');o.value=p;parkList.appendChild(o)})}
+function togglePm(){pmSection.style.display=controlStatus.value==='bijzonder'?'block':'none'} controlStatus.addEventListener('change',togglePm);
+const sigs={}; function setupCanvas(id,key){const canvas=document.getElementById(id),ctx=canvas.getContext('2d');sigs[key]={canvas,ctx,dirty:false};function pos(e){const r=canvas.getBoundingClientRect(),t=e.touches?e.touches[0]:e;return{x:(t.clientX-r.left)*canvas.width/r.width,y:(t.clientY-r.top)*canvas.height/r.height}}let drawing=false;function start(e){drawing=true;sigs[key].dirty=true;const p=pos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);e.preventDefault()}function move(e){if(!drawing)return;const p=pos(e);ctx.lineWidth=3;ctx.lineCap='round';ctx.lineTo(p.x,p.y);ctx.stroke();e.preventDefault()}function end(){drawing=false}canvas.addEventListener('mousedown',start);canvas.addEventListener('mousemove',move);window.addEventListener('mouseup',end);canvas.addEventListener('touchstart',start,{passive:false});canvas.addEventListener('touchmove',move,{passive:false});canvas.addEventListener('touchend',end)}
+function clearCanvas(key){const s=sigs[key]; if(!s)return; s.ctx.clearRect(0,0,s.canvas.width,s.canvas.height); s.dirty=false;}
+function getSig(key){const s=sigs[key]; if(!s||!s.dirty)return ''; return s.canvas.toDataURL('image/png')}
+function setSig(key,data){clearCanvas(key); if(!data)return; const s=sigs[key],img=new Image(); img.onload=()=>{s.ctx.drawImage(img,0,0,s.canvas.width,s.canvas.height);s.dirty=true}; img.src=data;}
+
+const DRIVE_WEBAPP_URL='https://script.google.com/macros/s/AKfycbw9yHBMS8WQoX2BvtlbxeTwGpzz49A1JPa9tpSlv6cuIoBLbKLwpxFn5g3SQpDODlcLcQ/exec';
+
+function cleanFileName(name){
+  return String(name||'recreatie.pdf')
+    .replace(/\s+/g,'_')
+    .replace(/[^a-zA-Z0-9._-]/g,'_')
+    .replace(/_+/g,'_');
+}
+
+function parkFileName(value){
+  const p=(value||'').trim();
+  return p ? p : 'AlleParken';
+}
+
+function pdfShell(title, subtitle, body){
+  return `<div style="font-family:Arial,sans-serif;color:#1f2937;background:white;width:190mm;padding:10mm;box-sizing:border-box">
+    <div style="border-bottom:5px solid #91b600;padding-bottom:8px;margin-bottom:12px">
+      <h1 style="margin:0;font-size:24px;line-height:1.15">${esc(title)}</h1>
+      <div style="font-size:12px;color:#6b7280;margin-top:4px">${esc(subtitle||'')}</div>
+    </div>
+    ${body}
+  </div>`;
+}
+
+function pdfStatusText(x){
+  if(x.status==='bijzonder' && x.pmStatus==='handled') return 'Bijzonderheid afgehandeld';
+  if(x.status==='bijzonder') return 'Wacht op parkmanager';
+  return 'Akkoord';
+}
+
+function pdfControlHtml(x){
+  const checksBy={};
+  (x.checks||[]).forEach(c=>{(checksBy[c.group]=checksBy[c.group]||[]).push(c)});
+  const body = `
+    <table style="width:100%;border-collapse:collapse;margin-bottom:12px;font-size:11px">
+      <tr>
+        <td style="border:1px solid #d1d5db;padding:6px"><strong>Datum</strong><br>${fmtDate(x.datum)}</td>
+        <td style="border:1px solid #d1d5db;padding:6px"><strong>Park</strong><br>${esc(x.park)}</td>
+        <td style="border:1px solid #d1d5db;padding:6px"><strong>Woning</strong><br>${esc(x.woning)}</td>
+      </tr>
+      <tr>
+        <td style="border:1px solid #d1d5db;padding:6px"><strong>Schoonmaker</strong><br>${esc(x.schoonmaker)}</td>
+        <td style="border:1px solid #d1d5db;padding:6px"><strong>Voorvrouw</strong><br>${esc(x.voorvrouw)}</td>
+        <td style="border:1px solid #d1d5db;padding:6px"><strong>Status</strong><br>${pdfStatusText(x)}</td>
+      </tr>
+    </table>
+
+    ${Object.entries(checksBy).map(([g,items])=>`
+      <div style="break-inside:avoid;margin:0 0 8px 0">
+        <h2 style="font-size:13px;margin:0 0 4px 0;background:#eef3d8;padding:6px;border-radius:6px">${esc(g)}</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 6px">
+          ${items.map(c=>`<div style="font-size:10px;border-bottom:1px solid #eef2f7;padding:2px 0">${c.checked?'☑':'☐'} ${esc(c.item)}</div>`).join('')}
+        </div>
+      </div>`).join('')}
+
+    <div style="break-inside:avoid;margin-top:10px">
+      <h2 style="font-size:13px;margin:0 0 4px 0">Bijzonderheden</h2>
+      <div style="border:1px solid #d1d5db;border-radius:6px;padding:7px;min-height:28px;font-size:11px">${esc(x.bijzonderheden)||'Geen bijzonderheden'}</div>
+    </div>
+
+    ${x.status==='bijzonder'?`
+      <div style="break-inside:avoid;margin-top:10px">
+        <h2 style="font-size:13px;margin:0 0 4px 0">Parkmanager</h2>
+        <div style="border:1px solid #d1d5db;border-radius:6px;padding:7px;font-size:11px">
+          <strong>Naam:</strong> ${esc(x.parkmanager||'')}<br>
+          <strong>Status:</strong> ${x.pmStatus==='handled'?'Afgehandeld / akkoord':'Wacht op parkmanager'}<br>
+          <strong>Opmerking:</strong><br>${esc(x.pmNote||'')}
+        </div>
+      </div>`:''}
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;break-inside:avoid;font-size:11px">
+      <div><strong>Handtekening voorvrouw</strong><br>${x.sigVoorvrouw?`<img src="${x.sigVoorvrouw}" style="width:100%;height:55px;object-fit:contain;border:1px solid #d1d5db;margin-top:4px">`:''}</div>
+      <div><strong>Handtekening parkmanager</strong><br>${x.sigParkmanager?`<img src="${x.sigParkmanager}" style="width:100%;height:55px;object-fit:contain;border:1px solid #d1d5db;margin-top:4px">`:''}</div>
+    </div>`;
+  return pdfShell('Woningcontrole recreatie', `${fmtDate(x.datum)} · ${x.park} · woning ${x.woning}`, body);
+}
+
+function pdfReportHtml(list,title,subtitle,mode){
+  const ok=list.filter(x=>x.status==='ok').length;
+  const bijz=list.filter(x=>x.status==='bijzonder').length;
+  const open=list.filter(x=>x.status==='bijzonder'&&x.pmStatus!=='handled').length;
+  const details=mode==='full'?list:list.filter(x=>x.status==='bijzonder');
+  const body = `
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px">
+      <div style="background:#eef3d8;border-radius:8px;padding:8px;text-align:center"><div style="font-size:24px;font-weight:900;color:#91b600">${list.length}</div><div style="font-size:10px;font-weight:700">woningen</div></div>
+      <div style="background:#eef3d8;border-radius:8px;padding:8px;text-align:center"><div style="font-size:24px;font-weight:900;color:#91b600">${ok}</div><div style="font-size:10px;font-weight:700">akkoord</div></div>
+      <div style="background:#fff7ed;border-radius:8px;padding:8px;text-align:center"><div style="font-size:24px;font-weight:900;color:#9a3412">${bijz}</div><div style="font-size:10px;font-weight:700">bijzonderheden</div></div>
+      <div style="background:#fee2e2;border-radius:8px;padding:8px;text-align:center"><div style="font-size:24px;font-weight:900;color:#991b1b">${open}</div><div style="font-size:10px;font-weight:700">openstaand</div></div>
+    </div>
+    ${!list.length?'<div style="padding:14px;text-align:center;color:#6b7280;font-weight:700">Geen controles gevonden.</div>':`
+      <h2 style="font-size:14px;margin:0 0 6px 0">Samenvatting</h2>
+      <table style="width:100%;border-collapse:collapse;font-size:9px;margin-bottom:12px">
+        <thead><tr>
+          <th style="border-bottom:1px solid #d1d5db;text-align:left;padding:4px">Datum</th>
+          <th style="border-bottom:1px solid #d1d5db;text-align:left;padding:4px">Park</th>
+          <th style="border-bottom:1px solid #d1d5db;text-align:left;padding:4px">Woning</th>
+          <th style="border-bottom:1px solid #d1d5db;text-align:left;padding:4px">Voorvrouw</th>
+          <th style="border-bottom:1px solid #d1d5db;text-align:left;padding:4px">Status</th>
+          <th style="border-bottom:1px solid #d1d5db;text-align:left;padding:4px">Bijzonderheden</th>
+        </tr></thead>
+        <tbody>${list.map(x=>`<tr>
+          <td style="border-bottom:1px solid #eef2f7;padding:4px">${fmtDate(x.datum)}</td>
+          <td style="border-bottom:1px solid #eef2f7;padding:4px">${esc(x.park)}</td>
+          <td style="border-bottom:1px solid #eef2f7;padding:4px">${esc(x.woning)}</td>
+          <td style="border-bottom:1px solid #eef2f7;padding:4px">${esc(x.voorvrouw)}</td>
+          <td style="border-bottom:1px solid #eef2f7;padding:4px">${pdfStatusText(x)}</td>
+          <td style="border-bottom:1px solid #eef2f7;padding:4px">${esc(x.bijzonderheden)}</td>
+        </tr>`).join('')}</tbody>
+      </table>
+      ${details.length?details.map(x=>`<div style="margin-top:8px;break-before:auto">${pdfControlHtml(x)}</div>`).join(''):'<div style="padding:12px;text-align:center;color:#6b7280;font-weight:700">Geen bijzonderheden voor deze selectie.</div>'}
+    `}`;
+  return pdfShell(title,subtitle,body);
+}
+
+async function uploadHtmlToDrive(html, filename){
+  if(!window.html2pdf){
+    alert('PDF-module is nog niet geladen. Probeer het over een paar seconden opnieuw.');
+    return;
+  }
+  const temp=document.createElement('div');
+  temp.style.position='absolute';
+  temp.style.left='0';
+  temp.style.top=(window.scrollY + 20) + 'px';
+  temp.style.width='190mm';
+  temp.style.background='white';
+  temp.style.zIndex='2147483647';
+  temp.style.padding='0';
+  temp.style.margin='0';
+  temp.innerHTML=html;
+  document.body.appendChild(temp);
+
+  await new Promise(resolve => setTimeout(resolve, 300));
+
+  try{
+    const pdfBlob=await html2pdf()
+      .set({margin:0, filename:filename, image:{type:'jpeg',quality:0.98}, html2canvas:{scale:2,useCORS:true,allowTaint:true,backgroundColor:'#ffffff',scrollX:0,scrollY:0}, jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}, pagebreak:{mode:['css','legacy']}})
+      .from(temp)
+      .outputPdf('blob');
+
+    const reader=new FileReader();
+    reader.onloadend=async function(){
+      try{
+        const response=await fetch(DRIVE_WEBAPP_URL,{method:'POST',body:JSON.stringify({filename:filename,file:reader.result})});
+        const result=await response.json();
+        if(result.success){
+          alert('PDF opgeslagen in Google Drive: '+result.name);
+        }else{
+          alert('Fout bij opslaan in Drive: '+result.error);
+        }
+      }catch(err){
+        alert('Upload mislukt: '+err);
+      }finally{
+        temp.remove();
+      }
+    };
+    reader.readAsDataURL(pdfBlob);
+  }catch(err){
+    temp.remove();
+    alert('PDF maken mislukt: '+err);
+  }
+}
+
+function uploadCurrentControlToDrive(){
+  saveControl(false);
+  setTimeout(()=>{
+    if(!editingId){alert('Sla de woningcontrole eerst op.');return;}
+    const x=entries().find(e=>e.id===editingId);
+    if(!x){alert('Woningcontrole niet gevonden.');return;}
+    const filename=cleanFileName(`Woningcontrole_${parkFileName(x.park)}_${x.woning}_${x.datum}.pdf`);
+    uploadHtmlToDrive(pdfControlHtml(x),filename);
+  },500);
+}
+
+function uploadReportToDrive(mode){
+  renderReport(mode);
+  const date=reportDate.value||todayStr();
+  const park=parkFileName(reportPark.value);
+  let list=entries().filter(x=>x.datum===date);
+  if((reportPark.value||'').trim()) list=list.filter(x=>x.park.toLowerCase().includes(reportPark.value.toLowerCase()));
+  const label=mode==='full'?'Volledig dagrapport':'Beknopt dagrapport';
+  const filename=cleanFileName(`Dagrapport_${park}_${date}.pdf`);
+  uploadHtmlToDrive(pdfReportHtml(list,`${label} recreatie`,fmtDate(date),mode),filename);
+}
+
+function uploadWeekReportToDrive(mode){
+  renderWeekReport(mode);
+  const date=weekDate.value||todayStr();
+  const park=parkFileName(weekPark.value);
+  const r=weekRangeFromDateString(date);
+  let list=entries().filter(x=>{const d=parseDate(x.datum); return d>=r.start && d<r.end});
+  if((weekPark.value||'').trim()) list=list.filter(x=>x.park.toLowerCase().includes(weekPark.value.toLowerCase()));
+  const wi=isoWeekInfo(parseDate(date));
+  const label=mode==='full'?'Volledig weekrapport':'Beknopt weekrapport';
+  const filename=cleanFileName(`Weekrapport_${park}_Week${wi.week}_${wi.year}.pdf`);
+  const subtitle=`Week ${wi.week} · ${fmtDate(r.start.toISOString().slice(0,10))} t/m ${fmtDate(new Date(r.end.getTime()-86400000).toISOString().slice(0,10))}`;
+  uploadHtmlToDrive(pdfReportHtml(list,`${label} recreatie`,subtitle,mode),filename);
+}
+
+
+buildChecklist(); datum.value=todayStr(); reportDate.value=todayStr(); if(typeof weekDate!=='undefined') weekDate.value=todayStr(); setupCanvas('sigVoorvrouw','voorvrouw'); setupCanvas('sigParkmanager','parkmanager'); updateParks(); togglePm(); render();
+</script>
+</body>
+</html>
