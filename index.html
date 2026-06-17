@@ -98,7 +98,8 @@
       <button class="primary" onclick="saveControl(false)">Opslaan</button>
       <button class="primary" onclick="saveControl(true)">Opslaan & nieuwe woning</button>
       <button class="secondary" onclick="printCurrentControl()">PDF woningcontrole maken</button>
-        <button class="secondary" onclick="showScreen('dashboard')">Terug naar dashboard</button>
+<button class="primary" onclick="uploadCurrentControlToDrive()">Woningcontrole opslaan in Drive</button>
+      <button class="secondary" onclick="showScreen('dashboard')">Terug naar dashboard</button>
     </div>
   </section>
 </section>
@@ -269,7 +270,45 @@ async function uploadElementToDrive(elementId, filename){
   };
 
   reader.readAsDataURL(pdfBlob);
+}reader.readAsDataURL(pdfBlob);
 }
+
+function uploadCurrentControlToDrive(){
+  saveControl(false);
+
+  setTimeout(() => {
+    if(!editingId){
+      alert('Sla de woningcontrole eerst op.');
+      return;
+    }
+
+    const x = entries().find(e => e.id === editingId);
+    if(!x){
+      alert('Woningcontrole niet gevonden.');
+      return;
+    }
+
+    const temp = document.createElement('div');
+    temp.id = 'tempPdfWoning';
+    temp.style.background = 'white';
+    temp.style.padding = '20px';
+    temp.innerHTML = controlHtml(x);
+
+    document.body.appendChild(temp);
+
+    const filename =
+      `woningcontrole-${x.park}-${x.woning}-${x.datum}.pdf`
+      .replace(/[^a-z0-9\-_.]/gi,'_');
+
+    uploadElementToDrive('tempPdfWoning', filename);
+
+    setTimeout(() => temp.remove(), 3000);
+
+  }, 500);
+}
+
+buildChecklist();
+datum.value=todayStr();
   buildChecklist(); datum.value=todayStr(); reportDate.value=todayStr(); if(typeof weekDate!=='undefined') weekDate.value=todayStr(); setupCanvas('sigVoorvrouw','voorvrouw'); setupCanvas('sigParkmanager','parkmanager'); updateParks(); togglePm(); render();
 </script>
 </body>
