@@ -19,7 +19,7 @@
   <div class="tabs">
     <button class="primary tabActive" id="tabDash" onclick="showScreen('dashboard')">Dashboard</button>
     <button class="secondary" id="tabForm" onclick="newControl()">+ Nieuwe woningcontrole</button>
-    <button class="secondary" id="tabReport" onclick="showScreen('report')">Dagrapport</button>
+    <button class="primary" onclick="renderReport('full');setTimeout(()=>uploadElementToDrive('reportOutput','dagrapport-volledig.pdf'),500)">Volledig dagrapport Drive</button>
     <button class="secondary" id="tabWeek" onclick="showScreen('week')">Weekrapport</button>
     <button class="secondary" onclick="window.print()">Print huidige scherm / PDF</button>
   <button class="primary" onclick="uploadElementToDrive('dashboardScreen','test-dashboard.pdf')">Test opslaan in Drive</button>
