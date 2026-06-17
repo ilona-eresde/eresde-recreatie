@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="nl">
-<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Eresdé Recreatie Tools v2.4</title>
@@ -21,6 +22,7 @@
     <button class="secondary" id="tabReport" onclick="showScreen('report')">Dagrapport</button>
     <button class="secondary" id="tabWeek" onclick="showScreen('week')">Weekrapport</button>
     <button class="secondary" onclick="window.print()">Print huidige scherm / PDF</button>
+  <button class="primary" onclick="uploadElementToDrive('dashboardScreen','test-dashboard.pdf')">Test opslaan in Drive</button>
   </div>
   <p class="small">Alles wordt lokaal in deze browser opgeslagen. Maak regelmatig een PDF/export als back-up.</p>
 </section>
@@ -236,7 +238,39 @@ const sigs={}; function setupCanvas(id,key){const canvas=document.getElementById
 function clearCanvas(key){const s=sigs[key]; if(!s)return; s.ctx.clearRect(0,0,s.canvas.width,s.canvas.height); s.dirty=false;}
 function getSig(key){const s=sigs[key]; if(!s||!s.dirty)return ''; return s.canvas.toDataURL('image/png')}
 function setSig(key,data){clearCanvas(key); if(!data)return; const s=sigs[key],img=new Image(); img.onload=()=>{s.ctx.drawImage(img,0,0,s.canvas.width,s.canvas.height);s.dirty=true}; img.src=data;}
-buildChecklist(); datum.value=todayStr(); reportDate.value=todayStr(); if(typeof weekDate!=='undefined') weekDate.value=todayStr(); setupCanvas('sigVoorvrouw','voorvrouw'); setupCanvas('sigParkmanager','parkmanager'); updateParks(); togglePm(); render();
+async function uploadElementToDrive(elementId, filename){
+  const element = document.getElementById(elementId);
+
+  const pdfBlob = await html2pdf()
+    .from(element)
+    .outputPdf('blob');
+
+  const reader = new FileReader();
+
+  reader.onloadend = async function(){
+    const response = await fetch(
+      'https://script.google.com/macros/s/AKfycbw9yHBMS8WQoX2BvtlbxeTwGpzz49A1JPa9tpSlv6cuIoBLbKLwpxFn5g3SQpDODlcLcQ/exec',
+      {
+        method:'POST',
+        body:JSON.stringify({
+          filename: filename,
+          file: reader.result
+        })
+      }
+    );
+
+    const result = await response.json();
+
+    if(result.success){
+      alert('PDF opgeslagen in Google Drive');
+    }else{
+      alert('Fout: ' + result.error);
+    }
+  };
+
+  reader.readAsDataURL(pdfBlob);
+}
+  buildChecklist(); datum.value=todayStr(); reportDate.value=todayStr(); if(typeof weekDate!=='undefined') weekDate.value=todayStr(); setupCanvas('sigVoorvrouw','voorvrouw'); setupCanvas('sigParkmanager','parkmanager'); updateParks(); togglePm(); render();
 </script>
 </body>
 </html>
