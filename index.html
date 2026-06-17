@@ -228,76 +228,8 @@ function renderWeekReport(mode=currentWeekMode){
   const subtitle=`Week ${wi.week} · ${fmtDate(r.start.toISOString().slice(0,10))} t/m ${fmtDate(new Date(r.end.getTime()-86400000).toISOString().slice(0,10))}`;
   weekOutput.innerHTML=reportBlock(list, `${label} recreatie`, subtitle, currentWeekMode);
 }
-function controlHtml(x){
-  const checksBy = {};
-  (x.checks || []).forEach(c => {
-    (checksBy[c.group] = checksBy[c.group] || []).push(c);
-  });
-
-  return `
-  <div style="font-family:Arial,sans-serif;color:#1f2937;padding:22px;max-width:900px;margin:auto;background:white">
-    <div style="border-bottom:5px solid #91b600;padding-bottom:12px;margin-bottom:18px">
-      <h1 style="margin:0;font-size:28px">Woningcontrole recreatie</h1>
-      <p style="margin:6px 0 0 0;font-size:15px;color:#6b7280">
-        ${fmtDate(x.datum)} · ${esc(x.park)} · woning ${esc(x.woning)}
-      </p>
-    </div>
-
-    <table style="width:100%;border-collapse:collapse;margin-bottom:18px">
-      <tr>
-        <td style="padding:8px;border:1px solid #ddd"><strong>Park</strong><br>${esc(x.park)}</td>
-        <td style="padding:8px;border:1px solid #ddd"><strong>Woning</strong><br>${esc(x.woning)}</td>
-        <td style="padding:8px;border:1px solid #ddd"><strong>Datum</strong><br>${fmtDate(x.datum)}</td>
-      </tr>
-      <tr>
-        <td style="padding:8px;border:1px solid #ddd"><strong>Schoonmaker</strong><br>${esc(x.schoonmaker)}</td>
-        <td style="padding:8px;border:1px solid #ddd"><strong>Voorvrouw</strong><br>${esc(x.voorvrouw)}</td>
-        <td style="padding:8px;border:1px solid #ddd"><strong>Status</strong><br>${x.status === 'ok' ? 'Akkoord' : 'Bijzonderheden aanwezig'}</td>
-      </tr>
-    </table>
-
-    <h2 style="font-size:18px;margin:18px 0 8px">Checklist</h2>
-
-    ${Object.entries(checksBy).map(([g,items]) => `
-      <div style="margin-bottom:14px;break-inside:avoid">
-        <h3 style="background:#eef3d8;padding:8px;border-radius:8px;margin:0 0 6px;font-size:15px">${esc(g)}</h3>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">
-          ${items.map(c => `
-            <div style="font-size:12px;border:1px solid #e5e7eb;padding:6px;border-radius:6px">
-              ${c.checked ? '☑' : '☐'} ${esc(c.item)}
-            </div>
-          `).join('')}
-        </div>
-      </div>
-    `).join('')}
-
-    <h2 style="font-size:18px;margin:18px 0 8px">Bijzonderheden</h2>
-    <div style="border:1px solid #ddd;border-radius:8px;padding:10px;min-height:50px">
-      ${esc(x.bijzonderheden) || 'Geen bijzonderheden'}
-    </div>
-
-    ${x.status === 'bijzonder' ? `
-      <h2 style="font-size:18px;margin:18px 0 8px">Parkmanager</h2>
-      <div style="border:1px solid #ddd;border-radius:8px;padding:10px">
-        <strong>Naam:</strong> ${esc(x.parkmanager || '')}<br>
-        <strong>Status:</strong> ${x.pmStatus === 'handled' ? 'Afgehandeld / akkoord' : 'Wacht op parkmanager'}<br>
-        <strong>Opmerking:</strong><br>${esc(x.pmNote || '')}
-      </div>
-    ` : ''}
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px">
-      <div>
-        <strong>Handtekening voorvrouw</strong><br>
-        ${x.sigVoorvrouw ? `<img src="${x.sigVoorvrouw}" style="width:100%;height:90px;object-fit:contain;border:1px solid #ddd;margin-top:6px">` : ''}
-      </div>
-      <div>
-        <strong>Handtekening parkmanager</strong><br>
-        ${x.sigParkmanager ? `<img src="${x.sigParkmanager}" style="width:100%;height:90px;object-fit:contain;border:1px solid #ddd;margin-top:6px">` : ''}
-      </div>
-    </div>
-  </div>`;
-} - ${esc(x.park)}</h2><div class="grid3"><div><strong>Datum:</strong> ${fmtDate(x.datum)}</div><div><strong>Schoonmaker:</strong> ${esc(x.schoonmaker)}</div><div><strong>Voorvrouw:</strong> ${esc(x.voorvrouw)}</div></div><p><strong>Status:</strong> ${statusLabel(x)}</p>${Object.entries(checksBy).map(([g,items])=>`<h3>${esc(g)}</h3><div class="checkGroup">${items.map(c=>`<div class="check"><input type="checkbox" ${c.checked?'checked':''} disabled><span>${esc(c.item)}</span></div>`).join('')}</div>`).join('')}<p><strong>Bijzonderheden:</strong><br>${esc(x.bijzonderheden)||'Geen'}</p><div class="grid"><div><strong>Handtekening voorvrouw</strong><br>${x.sigVoorvrouw?`<img src="${x.sigVoorvrouw}" style="max-width:100%;height:70px;border:1px solid #ddd">`:''}</div>${x.status==='bijzonder'?`<div><strong>Parkmanager</strong><br>${esc(x.parkmanager||'')}<br>${x.sigParkmanager?`<img src="${x.sigParkmanager}" style="max-width:100%;height:70px;border:1px solid #ddd">`:'Nog niet getekend'}<br>${esc(x.pmNote||'')}</div>`:''}</div></div>`}
-function printSaved(id){const x=entries().find(e=>e.id===id); if(!x)return; const w=window.open('','_blank'); w.document.write(`<!doctype html><html><head><title>Woning ${esc(x.woning)}</title><style>body{font-family:Arial,sans-serif;padding:18px;color:#1f2937}.card{border:1px solid #ddd;border-radius:10px;padding:12px;margin:10px 0}.grid,.grid3{display:grid;grid-template-columns:1fr 1fr;gap:8px}.checkGroup{display:grid;grid-template-columns:1fr 1fr;gap:4px}.check{font-size:12px}.statusOk,.statusWarn,.statusDone{font-weight:bold}img{background:white}</style></head><body>${controlHtml(x)}<script>window.print()<\/script></body></html>`); w.document.close();}
+function controlHtml(x){const checksBy={};(x.checks||[]).forEach(c=>{(checksBy[c.group]=checksBy[c.group]||[]).push(c)});return `<div class="card" style="page-break-inside:avoid"><h2>Woning ${esc(x.woning)} - ${esc(x.park)}</h2><div class="grid3"><div><strong>Datum:</strong> ${fmtDate(x.datum)}</div><div><strong>Schoonmaker:</strong> ${esc(x.schoonmaker)}</div><div><strong>Voorvrouw:</strong> ${esc(x.voorvrouw)}</div></div><p><strong>Status:</strong> ${statusLabel(x)}</p>${Object.entries(checksBy).map(([g,items])=>`<h3>${esc(g)}</h3><div class="checkGroup">${items.map(c=>`<div class="check"><input type="checkbox" ${c.checked?'checked':''} disabled><span>${esc(c.item)}</span></div>`).join('')}</div>`).join('')}<p><strong>Bijzonderheden:</strong><br>${esc(x.bijzonderheden)||'Geen'}</p><div class="grid"><div><strong>Handtekening voorvrouw</strong><br>${x.sigVoorvrouw?`<img src="${x.sigVoorvrouw}" style="max-width:100%;height:70px;border:1px solid #ddd">`:''}</div>${x.status==='bijzonder'?`<div><strong>Parkmanager</strong><br>${esc(x.parkmanager||'')}<br>${x.sigParkmanager?`<img src="${x.sigParkmanager}" style="max-width:100%;height:70px;border:1px solid #ddd">`:'Nog niet getekend'}<br>${esc(x.pmNote||'')}</div>`:''}</div></div>`}
+  function printSaved(id){const x=entries().find(e=>e.id===id); if(!x)return; const w=window.open('','_blank'); w.document.write(`<!doctype html><html><head><title>Woning ${esc(x.woning)}</title><style>body{font-family:Arial,sans-serif;padding:18px;color:#1f2937}.card{border:1px solid #ddd;border-radius:10px;padding:12px;margin:10px 0}.grid,.grid3{display:grid;grid-template-columns:1fr 1fr;gap:8px}.checkGroup{display:grid;grid-template-columns:1fr 1fr;gap:4px}.check{font-size:12px}.statusOk,.statusWarn,.statusDone{font-weight:bold}img{background:white}</style></head><body>${controlHtml(x)}<script>window.print()<\/script></body></html>`); w.document.close();}
 function printCurrentControl(){saveControl(false); setTimeout(()=>{if(editingId)printSaved(editingId)},200)}
 function exportCsv(){const list=entries(); if(!list.length){alert('Geen gegevens om te exporteren.');return} const rows=[['Datum','Park','Woning','Schoonmaker','Voorvrouw','Status','Bijzonderheden','Parkmanager','PM status'],...list.map(x=>[x.datum,x.park,x.woning,x.schoonmaker,x.voorvrouw,x.status,x.bijzonderheden,x.parkmanager,x.pmStatus])]; const csv=rows.map(r=>r.map(v=>`"${String(v||'').replace(/"/g,'""')}"`).join(';')).join('\n'); const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='recreatie_controles.csv'; a.click(); URL.revokeObjectURL(url);}
 function updateParks(){const parks=[...new Set(entries().map(x=>x.park).filter(Boolean))].sort(); parkList.innerHTML=''; parks.forEach(p=>{const o=document.createElement('option');o.value=p;parkList.appendChild(o)})}
