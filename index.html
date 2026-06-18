@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Eresdé Recreatie Tools v2.5.3 Drive</title>
+<title>Eresdé Recreatie Tools v2.5.4 Drive Parkmappen</title>
 <style>
 :root{--green:#91b600;--dark:#1f2937;--line:#d9dee7;--bg:#f4f6f8;--soft:#eef3d8;--danger:#fee2e2;--dangerText:#991b1b;--ok:#dcfce7;--okText:#166534;--warn:#fff7ed;--warnText:#9a3412;--blue:#dbeafe;--blueText:#1e40af}
 *{box-sizing:border-box}body{font-family:Arial,sans-serif;margin:0;background:var(--bg);color:var(--dark)}header{background:var(--green);color:white;padding:18px 16px;font-size:23px;font-weight:900}main{max-width:1100px;margin:auto;padding:14px}.card{background:white;border-radius:16px;padding:16px;margin:12px 0;box-shadow:0 2px 8px rgba(0,0,0,.08)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}label{font-size:14px;font-weight:900;margin-bottom:5px;display:block}input,select,textarea{width:100%;font-size:18px;padding:12px;border:1px solid var(--line);border-radius:11px;background:white}textarea{min-height:74px}button{font-size:18px;padding:13px 16px;border:0;border-radius:12px;font-weight:900;cursor:pointer}.primary{background:var(--green);color:white}.secondary{background:#e5e7eb;color:#111827}.danger{background:var(--danger);color:var(--dangerText)}.warn{background:var(--warn);color:var(--warnText)}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.small{font-size:13px;color:#6b7280;line-height:1.35}.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.kpi{background:var(--soft);border-radius:13px;padding:12px;font-weight:900;text-align:center}.kpi .num{font-size:30px;color:var(--green)}.kpi.warn{background:var(--warn);color:var(--warnText)}.kpi.warn .num{color:var(--warnText)}.kpi.danger{background:var(--danger);color:var(--dangerText)}.kpi.danger .num{color:var(--dangerText)}.tabs{display:flex;gap:8px;flex-wrap:wrap}.tabs button{font-size:16px}.tabActive{outline:3px solid rgba(145,182,0,.35)}.sectionTitle{font-size:21px;font-weight:900;margin:10px 0}.checkGroup{display:grid;grid-template-columns:1fr 1fr;gap:8px}.check{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff}.check input{width:24px;height:24px;margin:0;flex:0 0 auto}.check span{font-size:16px;font-weight:700}.badge{display:inline-block;background:#eef3d8;padding:5px 9px;border-radius:999px;font-weight:900;font-size:13px}.statusOk{display:inline-block;background:var(--ok);color:var(--okText);padding:5px 9px;border-radius:999px;font-weight:900;font-size:13px}.statusWarn{display:inline-block;background:var(--warn);color:var(--warnText);padding:5px 9px;border-radius:999px;font-weight:900;font-size:13px}.statusOpen{display:inline-block;background:var(--danger);color:var(--dangerText);padding:5px 9px;border-radius:999px;font-weight:900;font-size:13px}.statusDone{display:inline-block;background:var(--blue);color:var(--blueText);padding:5px 9px;border-radius:999px;font-weight:900;font-size:13px}canvas{width:100%;height:135px;border:2px dashed var(--line);border-radius:12px;background:white;touch-action:none}.sigSmall{height:90px}.filters{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}table{width:100%;border-collapse:collapse;margin-top:12px;background:white}th,td{border-bottom:1px solid var(--line);padding:10px;text-align:left;font-size:14px;vertical-align:top}th{background:#f9fafb;font-weight:900}.empty{padding:18px;text-align:center;color:#6b7280;font-weight:700}.rowActions button{font-size:13px;padding:7px 9px;margin:2px}.hidden{display:none!important}.openList{display:grid;gap:8px;margin-top:10px}.openItem{background:var(--warn);color:var(--warnText);border-radius:13px;padding:12px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}.openItem strong{display:block;color:#7c2d12}.reportOnly{display:none}.printHeader{display:none}
@@ -14,7 +14,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
-<header>Eresdé Recreatie Tools <span style="font-size:14px;font-weight:700">v2.5.3 Drive</span></header>
+<header>Eresdé Recreatie Tools <span style="font-size:14px;font-weight:700">v2.5.4 Drive Parkmappen</span></header>
 <main>
 <section class="card noPrint">
   <div class="tabs">
@@ -24,7 +24,7 @@
     <button class="secondary" id="tabWeek" onclick="showScreen('week')">Weekrapport</button>
     <button class="secondary" onclick="window.print()">Print huidige scherm / PDF</button>
   </div>
-  <p class="small">Alles wordt lokaal in deze browser opgeslagen. Maak regelmatig een PDF/export als back-up.</p>
+  <p class="small">Gegevens worden lokaal in deze browser bewaard. PDF's kunnen direct worden opgeslagen in de juiste Google Drive-parkmap.</p>
 </section>
 
 <section id="dashboardScreen">
@@ -59,7 +59,7 @@
     <h2 style="margin:0 0 10px 0">Woningcontrole</h2>
     <div class="grid">
       <div><label>Datum</label><input id="datum" type="date"></div>
-      <div><label>Park</label><input id="park" list="parkList" placeholder="Typ parknaam..."><datalist id="parkList"></datalist></div>
+      <div><label>Park</label><select id="park"><option value="">Kies park...</option><option value="Bergum">Bergum</option><option value="Heeg">Heeg</option><option value="Texel">Texel</option><option value="Verborgen hoek">Verborgen hoek</option></select><datalist id="parkList"></datalist></div>
       <div><label>Huisnummer / accommodatie</label><input id="woning" placeholder="Bijv. 101, Lodge 12"></div>
       <div><label>Schoonmaak uitgevoerd door</label><input id="schoonmaker" placeholder="Naam medewerker(s)"></div>
       <div><label>Voorvrouw</label><input id="voorvrouw" placeholder="Naam voorvrouw"></div>
@@ -109,7 +109,7 @@
     <h2 style="margin:0 0 10px 0">Dagrapport maken</h2>
     <div class="grid3">
       <div><label>Datum dagrapport</label><input id="reportDate" type="date" onchange="renderReport()"></div>
-      <div><label>Park filter</label><input id="reportPark" list="parkList" placeholder="Leeg = alle parken" oninput="renderReport()"></div>
+      <div><label>Park filter</label><select id="reportPark" onchange="renderReport()"><option value="">Alle parken</option><option value="Bergum">Bergum</option><option value="Heeg">Heeg</option><option value="Texel">Texel</option><option value="Verborgen hoek">Verborgen hoek</option></select></div>
       <div><label>Rapporttitel</label><input id="reportTitle" value="Dagrapport recreatie"></div>
     </div>
     <div class="actions">
@@ -128,7 +128,7 @@
     <h2 style="margin:0 0 10px 0">Weekrapport maken</h2>
     <div class="grid3">
       <div><label>Datum in week</label><input id="weekDate" type="date" onchange="renderWeekReport(currentWeekMode)"></div>
-      <div><label>Park filter</label><input id="weekPark" list="parkList" placeholder="Leeg = alle parken" oninput="renderWeekReport(currentWeekMode)"></div>
+      <div><label>Park filter</label><select id="weekPark" onchange="renderWeekReport(currentWeekMode)"><option value="">Alle parken</option><option value="Bergum">Bergum</option><option value="Heeg">Heeg</option><option value="Texel">Texel</option><option value="Verborgen hoek">Verborgen hoek</option></select></div>
       <div><label>Rapporttitel</label><input id="weekTitle" value="Weekrapport recreatie"></div>
     </div>
     <div class="actions">
@@ -183,8 +183,8 @@ function newControl(){editingId=null; clearForm(true); showScreen('form');}
 function clearForm(resetDate){editBanner.style.display='none'; datum.value= resetDate?todayStr():datum.value; reportDate.value=reportDate.value||todayStr(); woning.value=''; schoonmaker.value=''; bijzonderheden.value=''; parkmanager.value=''; pmNote.value=''; pmStatus.value='open'; controlStatus.value='ok'; document.querySelectorAll('.chk').forEach(c=>c.checked=false); clearCanvas('voorvrouw'); clearCanvas('parkmanager'); togglePm();}
 function collectChecks(){return [...document.querySelectorAll('.chk')].map(c=>({group:c.dataset.group,item:c.dataset.item,checked:c.checked}))}
 function applyChecks(checks){if(!checks)return; document.querySelectorAll('.chk').forEach(c=>{const found=checks.find(x=>x.group===c.dataset.group&&x.item===c.dataset.item); c.checked=found?!!found.checked:true;})}
-function saveControl(newAfter){if(!datum.value||!park.value.trim()||!woning.value.trim()||!voorvrouw.value.trim()){alert('Vul minimaal datum, park, woningnummer en voorvrouw in.');return;} const sigV=getSig('voorvrouw'); if(!sigV){alert('Handtekening voorvrouw is verplicht.');return;} if(controlStatus.value==='bijzonder' && pmStatus.value==='handled' && !getSig('parkmanager')){alert('Voor afgehandelde bijzonderheden is de handtekening van de parkmanager nodig.');return;} const item={id:editingId||Date.now().toString(36)+Math.random().toString(16).slice(2),datum:datum.value,park:park.value.trim(),woning:woning.value.trim(),schoonmaker:schoonmaker.value.trim(),voorvrouw:voorvrouw.value.trim(),status:controlStatus.value,bijzonderheden:bijzonderheden.value.trim(),checks:collectChecks(),sigVoorvrouw:sigV,parkmanager:parkmanager.value.trim(),pmStatus: controlStatus.value==='bijzonder'?pmStatus.value:'',pmNote:pmNote.value.trim(),sigParkmanager:getSig('parkmanager'),updated:new Date().toISOString()}; let list=entries(); if(editingId)list=list.map(x=>x.id===editingId?{...x,...item}:x); else list.unshift(item); setEntries(list); alert('Woningcontrole opgeslagen.'); if(newAfter){const keepPark=park.value,keepVoor=voorvrouw.value,keepDate=datum.value; clearForm(false); park.value=keepPark; voorvrouw.value=keepVoor; datum.value=keepDate; editingId=null; window.scrollTo({top:0,behavior:'smooth'}); setTimeout(()=>woning.focus(),100);} else {editingId=item.id; editBanner.style.display='block';} render();}
-function edit(id){const x=entries().find(e=>e.id===id); if(!x)return; editingId=id; datum.value=x.datum; park.value=x.park; woning.value=x.woning; schoonmaker.value=x.schoonmaker||''; voorvrouw.value=x.voorvrouw||''; controlStatus.value=x.status||'ok'; bijzonderheden.value=x.bijzonderheden||''; parkmanager.value=x.parkmanager||''; pmStatus.value=x.pmStatus||'open'; pmNote.value=x.pmNote||''; applyChecks(x.checks); setSig('voorvrouw',x.sigVoorvrouw); setSig('parkmanager',x.sigParkmanager); editBanner.style.display='block'; togglePm(); showScreen('form'); window.scrollTo({top:0,behavior:'smooth'});}
+function saveControl(newAfter){if(!datum.value||!park.value.trim()||!woning.value.trim()||!voorvrouw.value.trim()){alert('Vul minimaal datum, park, woningnummer en voorvrouw in.');return;} const sigV=getSig('voorvrouw'); if(!sigV){alert('Handtekening voorvrouw is verplicht.');return;} if(controlStatus.value==='bijzonder' && pmStatus.value==='handled' && !getSig('parkmanager')){alert('Voor afgehandelde bijzonderheden is de handtekening van de parkmanager nodig.');return;} const item={id:editingId||Date.now().toString(36)+Math.random().toString(16).slice(2),datum:datum.value,park:normalizeParkName(park.value),woning:woning.value.trim(),schoonmaker:schoonmaker.value.trim(),voorvrouw:voorvrouw.value.trim(),status:controlStatus.value,bijzonderheden:bijzonderheden.value.trim(),checks:collectChecks(),sigVoorvrouw:sigV,parkmanager:parkmanager.value.trim(),pmStatus: controlStatus.value==='bijzonder'?pmStatus.value:'',pmNote:pmNote.value.trim(),sigParkmanager:getSig('parkmanager'),updated:new Date().toISOString()}; let list=entries(); if(editingId)list=list.map(x=>x.id===editingId?{...x,...item}:x); else list.unshift(item); setEntries(list); alert('Woningcontrole opgeslagen.'); if(newAfter){const keepPark=park.value,keepVoor=voorvrouw.value,keepDate=datum.value; clearForm(false); park.value=keepPark; voorvrouw.value=keepVoor; datum.value=keepDate; editingId=null; window.scrollTo({top:0,behavior:'smooth'}); setTimeout(()=>woning.focus(),100);} else {editingId=item.id; editBanner.style.display='block';} render();}
+function edit(id){const x=entries().find(e=>e.id===id); if(!x)return; editingId=id; datum.value=x.datum; park.value=normalizeParkName(x.park); woning.value=x.woning; schoonmaker.value=x.schoonmaker||''; voorvrouw.value=x.voorvrouw||''; controlStatus.value=x.status||'ok'; bijzonderheden.value=x.bijzonderheden||''; parkmanager.value=x.parkmanager||''; pmStatus.value=x.pmStatus||'open'; pmNote.value=x.pmNote||''; applyChecks(x.checks); setSig('voorvrouw',x.sigVoorvrouw); setSig('parkmanager',x.sigParkmanager); editBanner.style.display='block'; togglePm(); showScreen('form'); window.scrollTo({top:0,behavior:'smooth'});}
 function del(id){if(!confirm('Deze woningcontrole verwijderen?'))return; setEntries(entries().filter(x=>x.id!==id)); render();}
 function deleteAll(){if(!confirm('Alle recreatiecontroles wissen op dit apparaat?'))return; setEntries([]); render();}
 function render(){const list=entries(); const today=list.filter(x=>inPeriod(x,'today')); kpiToday.textContent=today.length; kpiOk.textContent=today.filter(x=>x.status==='ok').length; kpiBijz.textContent=today.filter(x=>x.status==='bijzonder').length; kpiOpen.textContent=today.filter(x=>x.status==='bijzonder'&&x.pmStatus!=='handled').length; renderOpen(list); renderTable(list);}
@@ -237,7 +237,27 @@ function controlHtml(x){const checksBy={};(x.checks||[]).forEach(c=>{(checksBy[c
 function printSaved(id){const x=entries().find(e=>e.id===id); if(!x)return; const w=window.open('','_blank'); w.document.write(`<!doctype html><html><head><title>Woning ${esc(x.woning)}</title><style>body{font-family:Arial,sans-serif;padding:18px;color:#1f2937}.card{border:1px solid #ddd;border-radius:10px;padding:12px;margin:10px 0}.grid,.grid3{display:grid;grid-template-columns:1fr 1fr;gap:8px}.checkGroup{display:grid;grid-template-columns:1fr 1fr;gap:4px}.check{font-size:12px}.statusOk,.statusWarn,.statusDone{font-weight:bold}img{background:white}</style></head><body>${controlHtml(x)}<script>window.print()<\/script></body></html>`); w.document.close();}
 function printCurrentControl(){saveControl(false); setTimeout(()=>{if(editingId)printSaved(editingId)},200)}
 function exportCsv(){const list=entries(); if(!list.length){alert('Geen gegevens om te exporteren.');return} const rows=[['Datum','Park','Woning','Schoonmaker','Voorvrouw','Status','Bijzonderheden','Parkmanager','PM status'],...list.map(x=>[x.datum,x.park,x.woning,x.schoonmaker,x.voorvrouw,x.status,x.bijzonderheden,x.parkmanager,x.pmStatus])]; const csv=rows.map(r=>r.map(v=>`"${String(v||'').replace(/"/g,'""')}"`).join(';')).join('\n'); const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='recreatie_controles.csv'; a.click(); URL.revokeObjectURL(url);}
-function updateParks(){const parks=[...new Set(entries().map(x=>x.park).filter(Boolean))].sort(); parkList.innerHTML=''; parks.forEach(p=>{const o=document.createElement('option');o.value=p;parkList.appendChild(o)})}
+const PARK_FOLDERS={
+  'Bergum':'1pzrjnSQ1qnWG5LwF1eTpiCYX-Fw_aCFq',
+  'Heeg':'1vbBZHC1fv5nSx4TKLi7NxmkwvC3d2LWn',
+  'Texel':'17KF6h7fo-v0Sp4Jv7ngXXa-JvGOWeOlw',
+  'Verborgen hoek':'1sgJV2Rz5dI1VguJ0rBqb3y_ZPH7aa-RG'
+};
+function normalizeParkName(p){
+  const v=String(p||'').trim().toLowerCase().replace(/\s+/g,' ');
+  if(v==='bergum')return 'Bergum';
+  if(v==='heeg')return 'Heeg';
+  if(v==='texel')return 'Texel';
+  if(v==='verborgen hoek'||v==='verborgenhoek')return 'Verborgen hoek';
+  return String(p||'').trim();
+}
+function getParkFolderId(p){return PARK_FOLDERS[normalizeParkName(p)]||'';}
+function updateParks(){
+  if(typeof parkList!=='undefined'){
+    parkList.innerHTML='';
+    Object.keys(PARK_FOLDERS).forEach(p=>{const o=document.createElement('option');o.value=p;parkList.appendChild(o)});
+  }
+}
 function togglePm(){pmSection.style.display=controlStatus.value==='bijzonder'?'block':'none'} controlStatus.addEventListener('change',togglePm);
 const sigs={}; function setupCanvas(id,key){const canvas=document.getElementById(id),ctx=canvas.getContext('2d');sigs[key]={canvas,ctx,dirty:false};function pos(e){const r=canvas.getBoundingClientRect(),t=e.touches?e.touches[0]:e;return{x:(t.clientX-r.left)*canvas.width/r.width,y:(t.clientY-r.top)*canvas.height/r.height}}let drawing=false;function start(e){drawing=true;sigs[key].dirty=true;const p=pos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);e.preventDefault()}function move(e){if(!drawing)return;const p=pos(e);ctx.lineWidth=3;ctx.lineCap='round';ctx.lineTo(p.x,p.y);ctx.stroke();e.preventDefault()}function end(){drawing=false}canvas.addEventListener('mousedown',start);canvas.addEventListener('mousemove',move);window.addEventListener('mouseup',end);canvas.addEventListener('touchstart',start,{passive:false});canvas.addEventListener('touchmove',move,{passive:false});canvas.addEventListener('touchend',end)}
 function clearCanvas(key){const s=sigs[key]; if(!s)return; s.ctx.clearRect(0,0,s.canvas.width,s.canvas.height); s.dirty=false;}
@@ -252,11 +272,11 @@ function cleanFileName(name){
 }
 function parkFileName(value){const p=(value||'').trim(); return p?p:'AlleParken';}
 function pdfStatusText(x){if(x.status==='bijzonder'&&x.pmStatus==='handled')return 'Bijzonderheid afgehandeld'; if(x.status==='bijzonder')return 'Wacht op parkmanager'; return 'Akkoord';}
-async function uploadBlobToDrive(pdfBlob, filename){
+async function uploadBlobToDrive(pdfBlob, filename, folderId){
   const reader=new FileReader();
   reader.onloadend=async function(){
     try{
-      const response=await fetch(DRIVE_WEBAPP_URL,{method:'POST',body:JSON.stringify({filename:filename,file:reader.result})});
+      const response=await fetch(DRIVE_WEBAPP_URL,{method:'POST',body:JSON.stringify({filename:filename,file:reader.result,folderId:folderId||''})});
       const result=await response.json();
       if(result.success){alert('PDF opgeslagen in Google Drive: '+result.name);} else {alert('Fout bij opslaan in Drive: '+result.error);}
     }catch(err){alert('Upload mislukt: '+err);}
@@ -360,7 +380,7 @@ async function uploadCurrentControlToDrive(){
     const x=entries().find(e=>e.id===editingId); if(!x){alert('Woningcontrole niet gevonden.');return;}
     const blob=generateControlPdfBlob(x); if(!blob)return;
     const filename=cleanFileName(`Woningcontrole_${parkFileName(x.park)}_${x.woning}_${x.datum}.pdf`);
-    uploadBlobToDrive(blob,filename);
+    uploadBlobToDrive(blob,filename,getParkFolderId(x.park));
   },500);
 }
 function uploadReportToDrive(mode){
@@ -369,7 +389,7 @@ function uploadReportToDrive(mode){
   let list=entries().filter(x=>x.datum===date); if(p)list=list.filter(x=>x.park.toLowerCase().includes(p));
   const label=mode==='full'?'Volledig dagrapport':'Beknopt dagrapport'; const park=cleanFileName(parkFileName(reportPark.value));
   const blob=generateReportPdfBlob(list,`${label} recreatie`,fmtDate(date),mode); if(!blob)return;
-  uploadBlobToDrive(blob,cleanFileName(`Dagrapport_${park}_${date}.pdf`));
+  uploadBlobToDrive(blob,cleanFileName(`Dagrapport_${park}_${date}.pdf`),getParkFolderId(reportPark.value));
 }
 function uploadWeekReportToDrive(mode){
   renderWeekReport(mode);
@@ -378,7 +398,7 @@ function uploadWeekReportToDrive(mode){
   const wi=isoWeekInfo(parseDate(date)); const label=mode==='full'?'Volledig weekrapport':'Beknopt weekrapport'; const park=cleanFileName(parkFileName(weekPark.value));
   const subtitle=`Week ${wi.week} · ${fmtDate(r.start.toISOString().slice(0,10))} t/m ${fmtDate(new Date(r.end.getTime()-86400000).toISOString().slice(0,10))}`;
   const blob=generateReportPdfBlob(list,`${label} recreatie`,subtitle,mode); if(!blob)return;
-  uploadBlobToDrive(blob,cleanFileName(`Weekrapport_${park}_Week${wi.week}_${wi.year}.pdf`));
+  uploadBlobToDrive(blob,cleanFileName(`Weekrapport_${park}_Week${wi.week}_${wi.year}.pdf`),getParkFolderId(weekPark.value));
 }
 buildChecklist(); datum.value=todayStr(); reportDate.value=todayStr(); if(typeof weekDate!=='undefined') weekDate.value=todayStr(); setupCanvas('sigVoorvrouw','voorvrouw'); setupCanvas('sigParkmanager','parkmanager'); updateParks(); togglePm(); render();
 </script>
